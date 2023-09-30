@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const ProductSchema = new Schema(
   {
     title: { type: String },
+    image: { type: String },
     isActive: { type: Boolean, default: true },
   },
   {
