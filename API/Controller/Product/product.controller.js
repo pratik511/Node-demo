@@ -4,12 +4,12 @@ const messages = require("../../../json/message.json");
 
 module.exports = exports = {
   /* Create Productpost API */
-  createBlogpost: async (req, res) => {
-    const blogpost = await DB.PRODUCT.create(req.body);
-    return apiResponse.OK({ res, message: messages.SUCCESS, data: blogpost });
+  createProductpost: async (req, res) => {
+    const productpostspost = await DB.PRODUCT.create(req.body);
+    return apiResponse.OK({ res, message: messages.SUCCESS, data: productpostspost });
   },
 
-  getBlogpost: async (req, res) => {
+  getProductpost: async (req, res) => {
     const productposts = await DB.PRODUCT.find({ isActive: true }).lean();
 
     return apiResponse.OK({

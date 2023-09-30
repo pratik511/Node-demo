@@ -1,4 +1,4 @@
-const DB = require("../models");
+const DB = require("../API/Model");
 const { USER_TYPE } = require("../json/enums.json");
 const apiResponse = require("../utils/api.response");
 const message = require("../json/message.json");
@@ -18,7 +18,8 @@ module.exports = {
 
                 let decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-                user = await DB.USER.findOne({ _id: decoded?._id, isActive: true }).populate("roleId").lean();
+                user = await DB.USER.findOne({ _id: decoded?._id, isActive: true });
+                // user = await DB.USER.findOne({ _id: decoded?._id, isActive: true }).populate("roleId").lean();
                 if (!user) return apiResponse.UNAUTHORIZED({ res, message: message.INVALID_TOKEN });
 
             } catch (error) {
@@ -32,7 +33,7 @@ module.exports = {
             req.user = user;
             if (usersAllowed.length) {
 
-                if (req.user.roleId.name === USER_TYPE.ADMIN) return next();
+                // if (req.user.roleId.name === USER_TYPE.ADMIN) return next();
                 if (usersAllowed.includes("*")) return next();
                 if (usersAllowed.includes(req.user.roleId.name)) return next();
                 return apiResponse.UNAUTHORIZED({ res, message: message.UNAUTHORIZED });
